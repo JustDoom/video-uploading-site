@@ -80,8 +80,8 @@ if ($uploadOk == 0) {
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 
-    $command = "C:/FFmpeg/bin/ffmpeg -i $target_file $target_dir$videoname.mp4";
-    system($command);
+    //$command = "C:/FFmpeg/bin/ffmpeg -i $target_file $target_dir$videoname.mp4";
+    //system($command);
 
     $sql = "SELECT id FROM accounts WHERE username='$user'";
     $result = $conn->query($sql);
@@ -90,7 +90,7 @@ if ($uploadOk == 0) {
     }
 
     $sql = "INSERT INTO videos (id, views, likes, dislikes, title, videofile, releasedate, authorid, visibility)
-      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '" . $videoname . ".mp4', " . time() . ", '$userid', '$visibility')";
+      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '" . $videoname . "', " . time() . ", '$userid', '$visibility')";
 
     if ($conn->query($sql) === TRUE) {
       echo "New record created successfully";
@@ -98,8 +98,8 @@ if ($uploadOk == 0) {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
-    echo "The file " . htmlspecialchars(basename($videoname . ".mp4")) . " has been uploaded. <br>";
-    echo "<a href='$domain/video.php?video=$id'>$videoname.mp4</a>";
+    echo "The file " . htmlspecialchars(basename($videoname)) . " has been uploaded. <br>";
+    echo "<a href='$domain/video.php?video=$id'>$videoname</a>";
 
     //header("Location: $domain/video.php?video=$id");
     //exit();
