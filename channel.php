@@ -32,6 +32,6 @@ if ($result->num_rows > 0) {
     } else {
       echo "0 results";
     }
-    echo "Total Views: " . $totalviews;
+    echo " Total Views: " . $totalviews;
   }
 }
