@@ -17,7 +17,7 @@
     if(checkIfExists($id, $conn)){
         echo "existststststs";
     }
-    
+
     echo $email . "<br>";
     echo $user . "<br>";
     echo $pass;
@@ -35,8 +35,9 @@
         $conn->query($sql);
 
         session_start();
-        $user = // grab the username from your results set  
-        $_SESSION['username'] = $user; 
+        $user = // grab the username from your results set
+        $_SESSION['username'] = $user;
+        $_SESSION['id'] = $id;
 
         echo "<br> account created";
     }
@@ -44,7 +45,7 @@
     function checkIfExists($id, $conn){
         $sql = "SELECT id FROM accounts WHERE id='$id'";
         $result = $conn->query($sql);
-      
+
         if ($result->num_rows > 0) {
           echo "resultdewffsf";
           return true;

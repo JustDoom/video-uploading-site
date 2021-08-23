@@ -25,6 +25,7 @@ if (isset($_GET['video'])) {
       $views = $row['views'];
       $likes = $row['likes'];
       $visibility = $row['visibility'];
+      $authorid = $row['authorid'];
 
       $sql = "SELECT username FROM accounts WHERE id='" . $row['authorid'] . "'";
       $result = $conn->query($sql);
@@ -77,7 +78,7 @@ if (isset($_GET['video'])) {
 <p><?php echo $views ?></p>
 <input type="submit" value="Like" name="like" id="like">
 <?php echo "<p id='likes'>Likes: $likes</p>"; ?>
-<p><?= $author ?></p>
+<p><?php echo "<a href='$domain/channel.php?channel=$authorid'>$author</a>" ?></p>
 
 <?php
 if ($author == $user) {

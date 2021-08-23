@@ -11,7 +11,7 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    
+
     echo $user . "<br>";
     echo $pass;
 
@@ -24,7 +24,8 @@
 
             if($row['pass'] == $pass){
                 session_start();
-                $_SESSION['username'] = $user; 
+                $_SESSION['username'] = $user;
+                $_SESSION['id'] = $row['id'];
 
                 echo "<br> logged in";
                 break;
