@@ -1229,4 +1229,4 @@ FileETag None
 
 RewriteEngine On
 # RewriteRule ^([^.]+)$ $1.php [NC,L]
-# RewriteRule ^([^/]+)/? videosettings.php?title=$1 [L,QSA]
+# RewriteRule ^([^/]+)/? test.php?title=$1 [L,QSA]

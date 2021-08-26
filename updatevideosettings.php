@@ -24,6 +24,7 @@ $title = $_POST['title'];
 $id = $_POST['id'];
 $visibility = $_POST['visibility'];
 
+
 $sql = "UPDATE videos
         SET title = '$title', visibility = '$visibility'
         WHERE id='$id'";

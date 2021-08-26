@@ -1,7 +1,7 @@
 <?php
 
-include_once('settings.php');
-include_once('header.php');
+include_once('../settings.php');
+include_once('../header.php');
 
 if (isset($_GET['video'])) {
 
@@ -56,7 +56,7 @@ if (isset($_GET['video'])) {
 
 <head>
   <title><?php echo $title; ?></title>
-  <script src="likes.js"></script>
+  <script src="../likes.js"></script>
 </head>
 <body>
 
@@ -78,15 +78,15 @@ if (isset($_GET['video'])) {
 <p><?php echo $views ?></p>
 <input type="submit" value="Like" name="like" id="like">
 <?php echo "<p id='likes'>Likes: $likes</p>"; ?>
-<p><?php echo "<a href='$domain/channel.php?channel=$authorid'>$author</a>" ?></p>
+<p><?php echo "<a href='$domain/channel?channel=$authorid'>$author</a>" ?></p>
 
 <?php
 if ($author == $user) {
-  echo '<form action="videosettings.php" method="post" enctype="multipart/form-data">
+  echo '<form action="../videosettings.php" method="post" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="' . $id . '">
         <input type="submit" value="Update Video" name="update">
       </form>';
-  echo '<form action="deletevideo.php" method="post" enctype="multipart/form-data">
+  echo '<form action="../deletevideo.php" method="post" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="' . $id . '">
         <input type="submit" value="Delete Video" name="delete">
       </form>';

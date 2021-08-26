@@ -1,6 +1,6 @@
 <?php
-include_once('header.php');
-include_once('settings.php');
+include_once('../settings.php');
+include_once('../header.php');
 
 $id = $_GET['channel'];
 $totalviews = 0;
@@ -18,6 +18,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     echo "Channel: " . $row['username'] . "<br>";
+    echo "Joined On: " . date("Y-m-d h:i A", $row['joindate']) . "<br>";
     echo "Videos: <br>";
 
     $sql = "SELECT * FROM videos WHERE authorid='$id' ORDER BY releasedate DESC";
@@ -27,7 +28,7 @@ if ($result->num_rows > 0) {
       while ($row2 = $result2->fetch_assoc()) {
         $totalviews += $row2['views'];
         if($row2['visibility'] == "unlisted" || $row2['visibility'] == "private") continue;
-        echo '<a href="' . $domain . '/video.php?video=' . $row2['id'] . '">' . $row2['title'] . '</a> <br>';
+        echo '<a href="' . $domain . '/index.php?video=' . $row2['id'] . '">' . $row2['title'] . '</a> <br>';
       }
     } else {
       echo "0 results";

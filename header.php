@@ -19,7 +19,7 @@
 ?>
 
 <head>
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href=<?php echo $domain . "/css/custom.css" ?>>
 </head>
 <body>
     <div class="header">
@@ -29,10 +29,11 @@
             echo "<a href='$domain/accounts.php'>Sign Up</a> ";
             echo "<a href='$domain/accounts.php'>Login</a> ";
         } else {
-            echo "<a href='$domain/channel.php?channel=$id'>Channel</a> ";
+            echo "<a href='$domain/channel?channel=$id'>Channel</a> ";
             echo "<a href='$domain/signout.php'>Sign Out</a> ";
         }
         ?>
+        <a href=<?php echo "$domain/analytics" ?>>Analytics</a>
         <form action="upload.php">
             <input value="Upload Video" type="submit">
         </form>

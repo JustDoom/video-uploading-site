@@ -1,6 +1,6 @@
 <?php
-include_once('header.php');
-include_once('settings.php');
+include_once('../settings.php');
+include_once('../header.php');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -48,6 +48,7 @@ if ($result->num_rows > 0) {
 echo "New videos last 24 hours: $lastDayUploads<br>";
 echo "New videos last week: $lastWeekUploads<br>";
 echo "Total videos: $totalVideos<br>";
+
 echo "New accounts last 24 hours: $lastDayAcc<br>";
 echo "New accounts last week: $lastWeekAcc<br>";
 echo "Total accounts: $totalAcc<br>";

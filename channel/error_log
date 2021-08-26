@@ -1,0 +1,6 @@
+[25-Aug-2021 12:28:14 UTC] PHP Notice:  Undefined index: username in /home/laxnoden/public_html/videos/header.php on line 15
+[25-Aug-2021 12:28:14 UTC] PHP Notice:  Undefined index: id in /home/laxnoden/public_html/videos/header.php on line 16
+[25-Aug-2021 12:30:05 UTC] PHP Notice:  Undefined index: username in /home/laxnoden/public_html/videos/header.php on line 15
+[25-Aug-2021 12:30:05 UTC] PHP Notice:  Undefined index: id in /home/laxnoden/public_html/videos/header.php on line 16
+[25-Aug-2021 23:15:16 UTC] PHP Notice:  Undefined index: username in /home/laxnoden/public_html/videos/header.php on line 15
+[25-Aug-2021 23:15:16 UTC] PHP Notice:  Undefined index: id in /home/laxnoden/public_html/videos/header.php on line 16

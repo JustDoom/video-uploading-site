@@ -17,7 +17,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     if($row['visibility'] == "unlisted" || $row['visibility'] == "private") continue;
-    echo '<a href="' . $domain . '/video.php?video=' . $row['id'] . '">' . $row['title'] . '</a> <br>';
+    echo '<a href="' . $domain . '/video?video=' . $row['id'] . '">' . $row['title'] . '</a> <br>';
   }
 } else {
   echo "0 results";

@@ -20,19 +20,22 @@ $user = $_SESSION['username'];
 $uploadOk = 1;
 
 // Check if image file is an actual image or fake image
-if (isset($_POST["submit"])) {
+/**if (isset($_POST["submit"])) {
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if ($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
-    $uploadOk = 0;
+    $uploadOk = 1;
   } else {
     echo "File is not an image.";
-    $uploadOk = 1;
+    $uploadOk = 0;
   }
-}
+}**/
 
 $id = generateRandomString();
 $visibility = $_POST['visibility'];
+$description = $_POST['description'];
+
+echo $description;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -89,8 +92,8 @@ if ($uploadOk == 0) {
       $userid = $row['id'];
     }
 
-    $sql = "INSERT INTO videos (id, views, likes, dislikes, title, videofile, releasedate, authorid, visibility)
-      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '" . $videoname . "', " . time() . ", '$userid', '$visibility')";
+    $sql = "INSERT INTO videos (id, views, likes, dislikes, title, videofile, releasedate, authorid, visibility, description)
+      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '" . $videoname . "', " . time() . ", '$userid', '$visibility', '$description')";
 
     if ($conn->query($sql) === TRUE) {
       echo "New record created successfully";
@@ -99,9 +102,9 @@ if ($uploadOk == 0) {
     }
 
     echo "The file " . htmlspecialchars(basename($videoname)) . " has been uploaded. <br>";
-    echo "<a href='$domain/video.php?video=$id'>$videoname</a>";
+    echo "<a href='$domain/video?video=$id'>$videoname</a>";
 
-    //header("Location: $domain/video.php?video=$id");
+    //header("Location: $domain/video?video=$id");
     //exit();
   } else {
     echo "Sorry, there was an error uploading your file.";

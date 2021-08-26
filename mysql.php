@@ -38,8 +38,8 @@ $sql = "CREATE TABLE IF NOT EXISTS likes (
   userid VARCHAR(100) NOT NULL
   )";
 
-$sql = "ALTER TABLE videos
-  ADD visibility VARCHAR(10) NOT NULL";
+/**$sql = "ALTER TABLE videos
+  ADD description VARCHAR(1500) NOT NULL";**/
 
 if ($conn->query($sql) === TRUE) {
   echo "Table videos created successfully";
