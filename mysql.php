@@ -23,15 +23,24 @@ if ($conn->query($sql) === TRUE) {
   echo "Error creating database: " . $conn->error;
 }**/
 
-/**$sql = "CREATE TABLE IF NOT EXISTS videos (
+$sql = "CREATE TABLE IF NOT EXISTS videos (
     id VARCHAR(100) NOT NULL PRIMARY KEY,
     views INT NOT NULL,
     likes INT NOT NULL,
     dislikes INT NOT NULL,
     title VARCHAR(160) NOT NULL,
     videofile VARCHAR(360) NOT NULL,
-    releasedate INT NOT NULL
-    )";**/
+    releasedate INT NOT NULL,
+    description VARCHAR(1500) NOT NULL,
+    authorid VARCHAR(100) NOT NULL,
+    visibility VARCHAR(100) NOT NULL
+    )";
+
+if ($conn->query($sql) === TRUE) {
+  echo "Table videos created successfully";
+} else {
+  echo "Error creating table: " . $conn->error;
+}
 
 $sql = "CREATE TABLE IF NOT EXISTS likes (
   videoid VARCHAR(100) NOT NULL PRIMARY KEY,

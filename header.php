@@ -19,11 +19,11 @@
 ?>
 
 <head>
-    <link rel="stylesheet" href=<?php echo $domain . "/css/custom.css" ?>>
+    <link rel="stylesheet" href=<?= "$domain/css/custom.css" ?>>
 </head>
 <body>
     <div class="header">
-        <a href=<?php echo $domain ?>>Home</a>
+        <a href=<?= $domain ?>>Home</a>
         <?php
         if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
             echo "<a href='$domain/accounts.php'>Sign Up</a> ";
@@ -33,8 +33,8 @@
             echo "<a href='$domain/signout.php'>Sign Out</a> ";
         }
         ?>
-        <a href=<?php echo "$domain/analytics" ?>>Analytics</a>
-        <form action="upload.php">
+        <a href=<?= "$domain/analytics" ?>>Analytics</a>
+        <form action=<?= "$domain/upload.php" ?>>
             <input value="Upload Video" type="submit">
         </form>
     </div>

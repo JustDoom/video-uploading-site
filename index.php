@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM videos ORDER BY releasedate DESC";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     if($row['visibility'] == "unlisted" || $row['visibility'] == "private") continue;

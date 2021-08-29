@@ -30,10 +30,11 @@ $uploadOk = 1;
     $uploadOk = 0;
   }
 }**/
-
+//echo $_FILES["fileToUpload"]["name"];
+//exit();
 $id = generateRandomString();
-$visibility = $_POST['visibility'];
-$description = $_POST['description'];
+$visibility = "public";
+$description = "e";
 
 echo $description;
 
@@ -64,6 +65,7 @@ $videoname = str_replace(" ", "-", $_FILES["fileToUpload"]["name"]);
 $target_dir = "uploads/" . $id . "/";
 $target_file = $target_dir . basename($videoname);
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$filename = str_replace(".$imageFileType", "", $videoname);
 
 // Allow certain file formats
 if (
@@ -81,10 +83,11 @@ if ($uploadOk == 0) {
 
   echo $videoname;
 } else {
+  //If getting a sorry cannot upload do "chown -R www-data folder" in terminal
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 
-    //$command = "C:/FFmpeg/bin/ffmpeg -i $target_file $target_dir$videoname.mp4";
-    //system($command);
+    $command = "ffmpeg -i $target_file $target_dir$filename.mp4";
+    system($command);
 
     $sql = "SELECT id FROM accounts WHERE username='$user'";
     $result = $conn->query($sql);
@@ -93,7 +96,7 @@ if ($uploadOk == 0) {
     }
 
     $sql = "INSERT INTO videos (id, views, likes, dislikes, title, videofile, releasedate, authorid, visibility, description)
-      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '" . $videoname . "', " . time() . ", '$userid', '$visibility', '$description')";
+      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '$filename.mp4', " . time() . ", '$userid', '$visibility', '$description')";
 
     if ($conn->query($sql) === TRUE) {
       echo "New record created successfully";
@@ -104,7 +107,12 @@ if ($uploadOk == 0) {
     echo "The file " . htmlspecialchars(basename($videoname)) . " has been uploaded. <br>";
     echo "<a href='$domain/video?video=$id'>$videoname</a>";
 
-    //header("Location: $domain/video?video=$id");
+    if(!unlink($target_file)){
+      echo "Unable to delete old file, please contact the owner at https://discord.gg/WjDCKBShME and report it along with the video id";
+      return;
+    }
+
+    //header("LOCATION: $domain/video?video=$id");
     //exit();
   } else {
     echo "Sorry, there was an error uploading your file.";
