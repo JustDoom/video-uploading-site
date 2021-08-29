@@ -38,8 +38,6 @@ move_uploaded_file(
   'uploads/_Isaac/' . $_FILES['video']['name']
 );
 
-
-
-
+//pspspspspspsppspspspspspspsppspspspspspspspspsppspspspspspspspsppspsppspspspspspspspsppsspsppspspspsps
 ?>
 
