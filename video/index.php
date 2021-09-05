@@ -63,7 +63,10 @@ if (isset($_GET['video'])) {
 
 <head>
   <title><?php echo $title; ?></title>
-  <meta property="og:thumbnail" content="https://videos.laxnode.net/uploads/FbRF3QE8Z1/Alex-Boss.mp4">
+  <meta property="og:description" content="just a video" />
+  <meta property="og:video:type" content="application/mp4" />
+  <meta property="og:video:type" content="video/mp4" />
+  <meta property="og:video" content="https://videos.laxnode.net/uploads/FbRF3QE8Z1/Alex-Boss.mp4" />
   <script src="../likes.js"></script>
 </head>
 <body>
