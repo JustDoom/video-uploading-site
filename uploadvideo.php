@@ -10,13 +10,7 @@
 include_once('settings.php');
 
 session_start();
-if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
-  // redirect to your login page
-  //exit();
-}
-
 $user = $_SESSION['username'];
-
 $uploadOk = 1;
 
 // Check if image file is an actual image or fake image
@@ -30,13 +24,11 @@ $uploadOk = 1;
     $uploadOk = 0;
   }
 }**/
-//echo $_FILES["fileToUpload"]["name"];
-//exit();
+
 $id = generateRandomString();
+$title = $_POST['title'];
 $visibility = $_POST['visibility'];
 $description = $_POST['description'];
-
-//echo $description;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,49 +37,45 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_POST['title'] == "") {
-  echo "no title";
+if ($title == "") {
   $uploadOk = 0;
 }
 
 // Check if file already exists (make sure the new one is still new)
-$id = generateRandomString();
 if (checkIfExists($id, $conn)) {
-  echo "existststststs";
+  //TODO handle if id exists
 }
 
 if (!file_exists("uploads/$id")) {
   mkdir("uploads/$id", 0777, true);
+  mkdir("uploads/$id/old", 0777, true);
 }
 
 $videoname = str_replace(" ", "-", $_FILES["fileToUpload"]["name"]);
 
 $target_dir = "uploads/" . $id . "/";
-$target_file = $target_dir . basename($videoname);
+$target_file = $target_dir . "old/" . basename($videoname);
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 $filename = str_replace(".$imageFileType", "", $videoname);
 
 // Allow certain file formats
-if (
-  $imageFileType != "mov" && $imageFileType != "avi" && $imageFileType != "wmv"
-  && $imageFileType != "mp4" && $imageFileType != "flv"
-) {
-  echo "Sorry, only MP4, MOV, AVI, FLV and WMV files are allowed.";
-  $uploadOk = 0;
+if( $imageFileType != "mov" && $imageFileType != "avi" && $imageFileType != "wmv"
+    && $imageFileType != "mp4" && $imageFileType != "flv" ) {
+
+    $uploadOk = 0;
 }
 
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
-  // if everything is ok, try to upload file
+// if everything is ok, try to upload file
+if ($uploadOk == 1) {
 
-  echo $videoname;
-} else {
   //If getting a sorry cannot upload do "chown -R www-data folder" in terminal
-  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "$target_file")) {
 
+    // Run ffmpeg to convert file to mp4
     $command = "ffmpeg -i $target_file $target_dir$filename.mp4";
     system($command);
+
+    rmdir("uploads/$id/old");
 
     $sql = "SELECT id FROM accounts WHERE username='$user'";
     $result = $conn->query($sql);
@@ -96,26 +84,21 @@ if ($uploadOk == 0) {
     }
 
     $sql = "INSERT INTO videos (id, views, likes, dislikes, title, videofile, releasedate, authorid, visibility, description)
-      VALUES ('$id', 0, 0, 0, '" . $_POST['title'] . "', '$filename.mp4', " . time() . ", '$userid', '$visibility', '$description')";
+      VALUES ('$id', 0, 0, 0, '" . $title . "', '$filename.mp4', " . time() . ", '$userid', '$visibility', '$description')";
 
     if ($conn->query($sql) === TRUE) {
-      echo "New record created successfully";
+      // echo "New record created successfully";
     } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
+      // echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
-    echo "The file " . htmlspecialchars(basename($videoname)) . " has been uploaded. <br>";
-    echo "<a href='$domain/video?video=$id'>$videoname</a>";
-
     if(!unlink($target_file)){
-      echo "Unable to delete old file, please contact the owner at https://discord.gg/WjDCKBShME and report it along with the video id";
+      // echo "Unable to delete old file, please contact the owner at https://discord.gg/WjDCKBShME and report it along with the video id";
       return;
     }
 
-    //header("LOCATION: $domain/video?video=$id");
-    //exit();
   } else {
-    echo "Sorry, there was an error uploading your file.";
+    //echo "Sorry, there was an error uploading your file.";
   }
 
   $conn->close();
@@ -127,10 +110,8 @@ function checkIfExists($id, $conn)
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
-    echo "resultdewffsf";
     return true;
   } else {
-    echo "0 results";
     return false;
   }
 }

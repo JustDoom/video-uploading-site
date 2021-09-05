@@ -14,6 +14,13 @@ if (isset($_GET['video'])) {
     die("Connection failed: " . $conn->connect_error);
   }
 
+  /**
+   * <meta property="og:video:width" content="640" />
+  <meta property="og:video:height" content="426" />
+  <meta property="og:video:type" content="application/mp4" />
+  <meta property="og:video" content="https://videos.laxnode.net/uploads/d6X18Epq14/Big_Buck_Bunny_360_10s_1MB.mp4" />
+   */
+
   $sql = "SELECT * FROM videos WHERE id='$id'";
   $result = $conn->query($sql);
 
@@ -56,6 +63,7 @@ if (isset($_GET['video'])) {
 
 <head>
   <title><?php echo $title; ?></title>
+  <meta property="og:thumbnail" content="https://videos.laxnode.net/uploads/FbRF3QE8Z1/Alex-Boss.mp4">
   <script src="../likes.js"></script>
 </head>
 <body>
