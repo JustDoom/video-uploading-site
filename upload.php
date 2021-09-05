@@ -8,11 +8,15 @@
       return document.getElementById(el);
     }
     function uploadFile(){
+      alert('Hi hi');
+
       var file = _("fileToUpload").files[0];
-      var title = document.getElementById("title");
-      var description = document.getElementById("description");
-      var visibility = document.getElementById("visibility");
+      var title = document.getElementById("title").value;
+      var description = document.getElementById("description").value;
+      var visibility = document.getElementById("visibility").value;
       console.log(title.value);
+      alert(visibility);
+
       // alert(file.name+" | "+file.size+" | "+file.type);
       var formdata = new FormData();
       formdata.append("fileToUpload", file);

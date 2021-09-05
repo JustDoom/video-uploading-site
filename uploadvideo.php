@@ -33,10 +33,10 @@ $uploadOk = 1;
 //echo $_FILES["fileToUpload"]["name"];
 //exit();
 $id = generateRandomString();
-$visibility = "public";
-$description = "e";
+$visibility = $_POST['visibility'];
+$description = $_POST['description'];
 
-echo $description;
+//echo $description;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

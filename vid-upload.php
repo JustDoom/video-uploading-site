@@ -11,7 +11,7 @@
       var description = document.getElementById("description").value;
       var visibility = document.getElementById("visibility").value;
       var fileUploaded = _("fileToUpload").files[0];
-
+    alert('Hi hi');
 
       //alert(fileUploaded.name+" | "+fileUploaded.size+" | "+fileUploaded.type);
       var formdata = new FormData();
