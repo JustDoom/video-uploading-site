@@ -63,11 +63,12 @@ if (isset($_GET['video'])) {
 
 <head>
   <title><?php echo $title; ?></title>
-  <meta property="og:description" content="just a video" />
-  <meta property="og:video:type" content="application/mp4" />
+  <meta property="og:description" content="just a video 1" />
+  <meta property="og:video:width" content="400" />
+  <meta property="og:video:height" content="300" />
   <meta property="og:video:type" content="video/mp4" />
   <meta property="og:video" content="https://videos.laxnode.net/uploads/FbRF3QE8Z1/Alex-Boss.mp4" />
-  <script src="../likes.js"></script>
+  <script src="../js/likes.js"></script>
 </head>
 <body>
 
@@ -90,6 +91,7 @@ if (isset($_GET['video'])) {
 <input type="submit" value="Like" name="like" id="like">
 <?php echo "<p id='likes'>Likes: $likes</p>"; ?>
 <p><?php echo "<a href='$domain/channel?channel=$authorid'>$author</a>" ?></p>
+<?php echo "<input type='hidden' id='id' name='id' value='$id'>" ?>
 
 <?php
 if ($author == $user) {
